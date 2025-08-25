@@ -3,6 +3,9 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://dl.google.com/dl/android/maven2/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -13,8 +16,15 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://dl.google.com/dl/android/maven2/' }
     }
 }
+
+// JitPack expects this task; alias it to the legacy 'install' provided by android-maven plugin
+// so JitPack can publish to local maven without upgrading the toolchain.
+task publishToMavenLocal(dependsOn: [':htmltext:install']) {}
 
 task clean(type: Delete) {
     delete rootProject.buildDir
